@@ -5,9 +5,12 @@ public class movement : MonoBehaviour {
 
 	CharacterController characterController;
 	public GameObject leftHand;
+	private int controllerIndex;
+
 	// Use this for initialization
 	void Start () {
 		characterController = GetComponent<CharacterController>();
+		controllerIndex = (int)leftHand.GetComponent<SteamVR_TrackedObject>().index;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +19,8 @@ public class movement : MonoBehaviour {
 
 		characterController.Move(new Vector3(0f, 0f, vert));
 
-		if(Input.GetAxis("Jump") != 0) {
+		var device = SteamVR_Controller.Input(controllerIndex);
+		if(Input.GetAxis("Jump") != 0 || device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
 			Instantiate(Resources.Load<GameObject>("blockboy"), leftHand.transform.position, leftHand.transform.rotation);
 		}
 	}
