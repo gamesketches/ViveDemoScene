@@ -10,12 +10,13 @@ public class movement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		characterController = GetComponent<CharacterController>();
-		controllerIndex = (int)leftHand.GetComponent<SteamVR_TrackedObject>().index;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float vert = Input.GetAxis("Vertical");
+
+		controllerIndex = (int)leftHand.GetComponent<SteamVR_TrackedObject>().index;
 
 		characterController.Move(new Vector3(0f, 0f, vert));
 
